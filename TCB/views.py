@@ -34,13 +34,19 @@ def signup(request):
         email = request.POST['email']
         pass1 = request.POST['password']
         pass2 = request.POST['passwordcd']
-        
+
         if pass1 == pass2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,'Username Taken')
                 return redirect('signup')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'Email Taken')
+                return redirect('signup')
+            elif len(username) > 16:
+                messages.info(request,'Username must be under 16 characters')
+                return redirect('signup')
+            elif not username.isalnum():
+                messages.info(request,'Username must be alphanumeric')
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username=username, password=pass1, email=email, first_name=fname, last_name=lname)
