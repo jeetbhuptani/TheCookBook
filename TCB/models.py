@@ -20,7 +20,7 @@ class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe_name = models.CharField(max_length=100)
-    recipe_image = models.ImageField(upload_to='recipe_images/')
+    recipe_image = models.ImageField(upload_to='static/recipe_images/')
     recipe_steps = models.TextField()
     cooking_time = models.CharField(max_length=100)
     serving = models.IntegerField()

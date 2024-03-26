@@ -4,9 +4,31 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
 # Create your views here.
+from .models import *
 
 def home(request):
-    return render(request,'home.html')
+    if request.method == 'POST':
+        rname = request.POST['recipe']
+        category_id = request.POST['category']
+        cuisine_id = request.POST['cuisine']
+        veg = request.POST['veg']
+        non = request.POST['non-veg']
+
+        recipe = Recipe.objects.filter(recipe_name=rname).values()
+
+        context = {
+            'recipe' : recipe,
+        }
+        return render(request,'home.html',context)
+    category = Category.objects.all()
+    cuisine = Cuisine.objects.all()
+    recipe = Recipe.objects.all()
+    context={
+        'category':category,
+        'cuisine':cuisine,
+        'recipe': recipe,
+    }
+    return render(request,'home.html',context)
 
 def login(request):
     if request.method == 'POST':
