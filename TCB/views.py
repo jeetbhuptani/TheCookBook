@@ -86,3 +86,15 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def aboutus(request):
+    return render(request,"aboutus.html")
+
+def account(request):
+    return render(request,"account.html")
+
+def urecipe(request):
+    return render(request,"urecipe.html")
+
+def vrecipe(request):
+    return render(request,"vrecipe.html")

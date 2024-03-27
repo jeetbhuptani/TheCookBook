@@ -6,4 +6,8 @@ urlpatterns = [
     path('login',views.login,name="login"),
     path('signup',views.signup,name="signup"),
     path('logout',views.logout,name="logout"),
+    path('aboutus',views.aboutus,name="aboutus"),
+    path('account',views.account,name="account"),
+    path('urecipe',views.urecipe,name="urecipe"),
+    path('vrecipe',views.vrecipe,name="vrecipe"),
 ]
