@@ -27,10 +27,10 @@
     <meta property="og:type" content="website" />
     <meta data-intl-tel-input-cdn-path="{% static 'intlTelInput/' %}" />
   </head>
-  <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+  <body data-path-to-root="./" data-include-products="true" class="u-body u-xl-mode" data-lang="en">
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="home.html" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
+        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -89,7 +89,7 @@
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-3">
                   {% if user.is_authenticated %}
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="home.html">Serach Recipes</a>
+                      <a class="u-button-style u-nav-link" href="/">Serach Recipes</a>
                     </li>
                     <li class="u-nav-item">
                       <a class="u-button-style u-nav-link" href="aboutus">About TCB</a>
@@ -124,9 +124,10 @@
     </header>
     <section class="u-border-5 u-border-grey-10 u-border-no-bottom u-border-no-left u-border-no-right u-clearfix u-gradient u-section-1" id="sec-065b">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="urecipe.html" class="submit u-border-none u-btn u-btn-round u-button-style u-none u-radius u-btn-1"><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/25429.png' %}" alt="" /></span>&nbsp;<br /></a>
+        <a href="urecipe" class="submit u-border-none u-btn u-btn-round u-button-style u-none u-radius u-btn-1"><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/25429.png' %}" alt="" /></span>&nbsp;<br /></a>
         <div class="u-align-center u-custom-color-1 u-form u-radius u-form-1">
-          <form action="account" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Upload Recipe" style="padding: 10px;" method="post">
+          <form action="urecipe" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Upload Recipe" style="padding: 10px;" method="post">
+            {% csrf_token %}
             <div class="u-form-group u-form-name u-label-top">
               <label for="name-adf1" class="u-custom-font u-font-montserrat u-label">Recipe Title</label>
               <input type="text" placeholder="Enter Recipe Title" id="name-adf1" name="recipename" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-input-1" required="" maxlength="20" />
@@ -135,9 +136,9 @@
               <label for="select-8056" class="u-custom-font u-font-montserrat u-label">Category</label>
               <div class="u-form-select-wrapper">
                 <select id="select-8056" name="category" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-input-2" required="required">
-                  <option value="Item 1" data-calc="">Item 1</option>
-                  <option value="Item 2" data-calc="">Item 2</option>
-                  <option value="Item 3" data-calc="">Item 3</option>
+                  {% for x in category %}
+                  <option value="{{x.category_id}}" data-calc="">{{x.category_name}}</option>
+                  {% endfor %}
                 </select>
                 <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
                   <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
@@ -148,9 +149,9 @@
               <label for="select-bd3f" class="u-custom-font u-font-montserrat u-label">Cuisine</label>
               <div class="u-form-select-wrapper">
                 <select id="select-bd3f" name="cuisine" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-input-3" required="required">
-                  <option value="Item 1" data-calc="">Item 1</option>
-                  <option value="Item 2" data-calc="">Item 2</option>
-                  <option value="Item 3" data-calc="">Item 3</option>
+                  {% for x in cuisine %}
+                  <option value="{{x.cuisine_id}}" data-calc="">{{x.cuisine_name}}</option>
+                  {% endfor %}
                 </select>
                 <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
                   <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
@@ -161,27 +162,18 @@
               <label class="u-custom-font u-font-montserrat u-form-control-hidden u-label"></label>
               <div class="u-form-radio-button-wrapper">
                 <div class="u-input-row">
-                  <input id="field-fd8f" type="radio" name="veg" value="veg" class="u-field-input" required="required" data-calc="veg" />
+                  <input id="field-fd8f" type="radio" name="veg" value="True" class="u-field-input" required="required" data-calc="veg" />
                   <label class="u-field-label" for="field-fd8f">Veg.</label>
                 </div>
                 <div class="u-input-row">
-                  <input id="field-86db" type="radio" name="veg" value="nonveg" class="u-field-input" required="required" data-calc="nonveg" />
+                  <input id="field-86db" type="radio" name="veg" value="False" class="u-field-input" required="required" data-calc="nonveg" />
                   <label class="u-field-label" for="field-86db">Non-Veg.</label>
                 </div>
               </div>
             </div>
-            <div class="u-form-group u-form-select u-label-top u-form-group-5">
-              <label for="select-e032" class="u-custom-font u-font-montserrat u-label">Ingredients</label>
-              <div class="u-form-select-wrapper">
-                <select id="select-e032" name="ingredients" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-input-4" size="5" required="required">
-                  <option value="Item 1" data-calc="">Item 1</option>
-                  <option value="Item 2" data-calc="">Item 2</option>
-                  <option value="Item 3" data-calc="">Item 3</option>
-                </select>
-                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
-                  <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
-                </svg>
-              </div>
+            <div class="u-form-group u-form-textarea u-label-top u-form-group-5">
+              <label for="textarea-f54a" class="u-custom-font u-font-montserrat u-label">Ingredients</label>
+              <textarea rows="4" cols="50" id="textarea-f54a" name="ingredients" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-input-4" required=""></textarea>
             </div>
             <div class="u-form-group u-form-textarea u-label-top u-form-group-6">
               <label for="textarea-f42c" class="u-custom-font u-font-montserrat u-label">Recipe Steps</label>
@@ -198,14 +190,18 @@
               <div class="u-input-row" data-value="0">
                 <input value="0" min="0" max="100" step="1" type="number" placeholder="" id="number-7817" name="serving" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-text-black u-input-7" />
               </div>
+              <div class="u-form-group u-form-number u-form-number-layout-number u-label-top u-form-group-9">
+                <label for="number-7817" class="u-custom-font u-font-montserrat u-label">Recipe Image</label>
+                <div class="u-input-row" data-value="0">
+                  <input type="file" placeholder="" id="number-7818" name="recipeimage" class="u-border-4 u-border-custom-color-1 u-custom-font u-font-merriweather u-input u-input-rectangle u-radius u-text-black u-input-7"  accept="image/*"/>
+                </div>
             </div>
             <div class="u-align-center u-form-group u-form-submit u-label-top">
               <input type="submit" value="submit" class="u-form-control-hidden" />
-              <a href="#" class="submit u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-5 u-radius u-text-grey-10 u-btn-2">Upload Recipe</a>
+              <a href="account" class="submit u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-5 u-radius u-text-grey-10 u-btn-2">Upload Recipe</a>
             </div>
             <div class="u-form-send-message u-form-send-success">Your Recipe Has Been Uploaded</div>
             <div class="u-form-send-error u-form-send-message">Unable to upload recipe. Please fix errors then try again.</div>
-            <input type="hidden" value="" name="recaptchaResponse" />
           </form>
         </div>
       </div>

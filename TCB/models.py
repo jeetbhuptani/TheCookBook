@@ -22,15 +22,12 @@ class Recipe(models.Model):
     recipe_name = models.CharField(max_length=100)
     recipe_image = models.ImageField(upload_to='static/recipe_images/')
     recipe_steps = models.TextField()
+    ingredients = models.TextField()
     cooking_time = models.CharField(max_length=100)
     serving = models.IntegerField()
     cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     veg = models.BooleanField()
-
-class Ingredient(models.Model):
-    ingredient_id = models.AutoField(primary_key=True)
-    ingredient_name = models.CharField(max_length=100)
 
 class Report(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -44,9 +41,3 @@ class Comment(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     comment = models.TextField()
     date = models.DateField(auto_now_add=True)
-
-class Measurement(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.FloatField()
-    measurement = models.CharField(max_length=100)

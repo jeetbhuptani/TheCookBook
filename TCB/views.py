@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 # Create your views here.
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     if request.method == 'POST':
@@ -83,6 +84,7 @@ def signup(request):
     else:
         return render(request,'signup.html')
 
+@login_required(login_url='/login')
 def logout(request):
     auth.logout(request)
     return redirect('/')
@@ -90,11 +92,51 @@ def logout(request):
 def aboutus(request):
     return render(request,"aboutus.html")
 
+@login_required(login_url='/login')
 def account(request):
     return render(request,"account.html")
 
+@login_required(login_url='/login')
 def urecipe(request):
-    return render(request,"urecipe.html")
+    if request.method == 'POST':
+        recipe_name = request.POST['recipename']
+        category_id = request.POST['category']
+        cuisine_id = request.POST['cuisine']
+        veg = request.POST['veg']
+        ingredients = request.POST['ingredients']
+        steps = request.POST['steps']
+        cooktime = request.POST['cooktime']
+        serving = request.POST['serving']
+        recipeimage = request.FILES['recipeimage']
 
+        category = Category.objects.get(pk=category_id)
+        cuisine = Cuisine.objects.get(pk=cuisine_id)
+
+        recipe = Recipe.objects.create(
+            user = request.user,
+            recipe_name = recipe_name,
+            recipe_image = recipeimage,
+            recipe_steps = steps,
+            ingredients = ingredients,
+            cooking_time = cooktime,
+            serving = serving,
+            cuisine = cuisine, 
+            category = category,
+            veg = veg
+        )
+        print(recipe)
+        recipe.save()
+        return redirect('account')
+
+    else:
+        category = Category.objects.all()
+        cuisine = Cuisine.objects.all()
+        context={
+            "category": category,
+            "cuisine": cuisine,
+        }
+        return render(request,"urecipe.html",context)
+
+@login_required(login_url='/login')
 def vrecipe(request):
     return render(request,"vrecipe.html")
