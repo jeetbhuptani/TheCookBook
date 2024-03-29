@@ -94,7 +94,34 @@ def aboutus(request):
 
 @login_required(login_url='/login')
 def account(request):
-    return render(request,"account.html")
+    
+    if request.method == 'POST':
+        user = request.user
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email'] 
+        if fname.isalpha():
+            user.first_name = fname
+        else:
+            messages.info(request,'Invalid Name')
+            return redirect('account')
+        if lname.isalpha():
+            user.last_name = lname
+        else:
+            messages.info(request,'Invalid Name')
+            return redirect('account')
+        if email != user.email and User.objects.filter(email=email).exists():
+                messages.info(request,'Email Taken')
+                return redirect('account')
+        user.email = email
+        user.save()
+        return redirect('account')
+    else:
+        user = request.user
+        context={
+            'user': user,
+        }
+        return render(request,"account.html",context)
 
 @login_required(login_url='/login')
 def urecipe(request):
