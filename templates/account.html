@@ -205,54 +205,21 @@
           <div class="u-list-control"></div>
           <div class="u-repeater u-repeater-1">
             <!-- blog_post -->
-            <div class="u-blog-post u-container-style u-repeater-item">
+            {% for x in recipe %}
+            <div style="padding-top: 30px;" class="u-blog-post u-container-style u-repeater-item">
               <div class="u-container-layout u-similar-container u-container-layout-1">
                 <!-- blog_post_header -->
-                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-2"><a class="u-post-header-link" href="blog/post-5.html">Post 6 Headline</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/484662.png' %}" alt="" /></span>
-                <a class="u-post-header-link" href="blog/post-5.html">
+                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-2"><a class="u-post-header-link" href="blog/post-5.html">{{x.recipe_name}}</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/484662.png' %}" alt="" /></span>
+                <a class="u-post-header-link" href="{% url 'vrecipe' recipe_id=x.recipe_id %}">
                   <!-- blog_post_image -->
-                  <img src="{% static 'images/8ad73f3c.jpeg' %}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" /><!-- /blog_post_image -->
+                  <img src="{{x.recipe_image}}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" /><!-- /blog_post_image -->
                 </a><!-- blog_post_content -->
-                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-3 fr-view">Sample small text. Lorem ipsum dolor sit amet.</div>
+                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-3 fr-view">Cuisine: {{x.cuisine.cuisine_name}}</div>
                 <!-- /blog_post_content -->
               </div>
             </div>
-            <div class="u-blog-post u-container-style u-repeater-item">
-              <div class="u-container-layout u-similar-container u-container-layout-2">
-                <!-- blog_post_header -->
-                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-4"><a class="u-post-header-link" href="blog/post-4.html">Post 5 Headline</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-2"><img src="{% static 'images/484662.png' %}" alt="" /></span>
-                <a class="u-post-header-link" href="blog/post-4.html">
-                  <!-- blog_post_image -->
-                  <img src="{% static 'images/68f64b9d.jpeg' %}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" /><!-- /blog_post_image -->
-                </a><!-- blog_post_content -->
-                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-5 fr-view">Sample small text. Lorem ipsum dolor sit amet.</div>
-                <!-- /blog_post_content -->
-              </div>
-            </div>
-            <div class="u-blog-post u-container-style u-repeater-item">
-              <div class="u-container-layout u-similar-container u-container-layout-3">
-                <!-- blog_post_header -->
-                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-6"><a class="u-post-header-link" href="blog/post-3.html">Post 4 Headline</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-3"><img src="{% static 'images/484662.png' %}" alt="" /></span>
-                <a class="u-post-header-link" href="blog/post-3.html">
-                  <!-- blog_post_image -->
-                  <img src="{% static 'images/0fd3416c.jpeg' %}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-3" /><!-- /blog_post_image -->
-                </a><!-- blog_post_content -->
-                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-7 fr-view">Sample small text. Lorem ipsum dolor sit amet.</div>
-                <!-- /blog_post_content -->
-              </div>
-            </div>
-            <div class="u-blog-post u-container-style u-repeater-item">
-              <div class="u-container-layout u-similar-container u-container-layout-4">
-                <!-- blog_post_header -->
-                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-8"><a class="u-post-header-link" href="blog/post-2.html">Post 3 Headline</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-4"><img src="{% static 'images/484662.png' %}" alt="" /></span>
-                <a class="u-post-header-link" href="blog/post-2.html">
-                  <!-- blog_post_image -->
-                  <img src="{% static 'images/8ad73f3c.jpeg' %}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-4" /><!-- /blog_post_image -->
-                </a><!-- blog_post_content -->
-                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-9 fr-view">Sample small text. Lorem ipsum dolor sit amet.</div>
-                <!-- /blog_post_content -->
-              </div>
-            </div>
+            {% endfor %}
+            
             <!-- /blog_post -->
             <!-- blog_post -->
             <!-- /blog_post -->

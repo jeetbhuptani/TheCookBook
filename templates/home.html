@@ -268,10 +268,10 @@
             <div class="u-blog-post u-container-style u-repeater-item">
               <div class="u-container-layout u-similar-container u-container-layout-1">
                 <!-- blog_post_header -->
-                <h2 class="u-blog-control u-text"><a class="u-post-header-link" href="blog/post-5.html">{{ x.recipe_name }}</a></h2><!-- /blog_post_header -->
-                <a class="u-post-header-link" href="blog/post-5.html">
+                <h2 class="u-blog-control u-text"><a class="u-post-header-link" href="{% url 'vrecipe' recipe_id=x.recipe_id %}">{{ x.recipe_name }}</a></h2><!-- /blog_post_header -->
+                <a class="u-post-header-link" href="{% url 'vrecipe' recipe_id=x.recipe_id %}">
                   <!-- blog_post_image -->
-                  <img src="{{x.recipe_image}}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" /><!-- /blog_post_image -->
+                  <img src="{{x.recipe_image}}" alt="" class="u-blog-control u-expanded-width u-image u-image-de  ult u-image-1" /><!-- /blog_post_image -->
                 </a><!-- blog_post_content -->
                 <div class="u-blog-control u-post-content u-text fr-view">by {{x.user.username}}</div>
                 <!-- /blog_post_content -->

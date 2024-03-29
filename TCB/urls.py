@@ -9,5 +9,5 @@ urlpatterns = [
     path('aboutus',views.aboutus,name="aboutus"),
     path('account',views.account,name="account"),
     path('urecipe',views.urecipe,name="urecipe"),
-    path('vrecipe',views.vrecipe,name="vrecipe"),
+    path('vrecipe/<int:recipe_id>/',views.vrecipe,name="vrecipe"),
 ]

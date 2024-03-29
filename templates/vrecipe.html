@@ -31,7 +31,7 @@
   <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="home.html" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
+        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -51,7 +51,7 @@
             <ul class="u-nav u-unstyled u-nav-1">
               {% if user.is_authenticated %}
                 <li class="u-nav-item">
-                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="home.html" style="padding: 10px 20px;">Serach Recipes</a>
+                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/" style="padding: 10px 20px;">Serach Recipes</a>
                 </li>
               {% endif %}
               <li class="u-nav-item">
@@ -123,6 +123,7 @@
         </nav>
       </div>
     </header>
+    <div class="u-clearfix u-image u-shading u-section-1" style="background-image: '{{recipe.recipe_image}}';">
     <section class="u-clearfix u-image u-shading u-section-1" id="sec-3f03" data-image-width="1280" data-image-height="862">
       <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
         <div class="data-layout-selected u-clearfix u-expanded-width-sm u-expanded-width-xs u-gutter-0 u-layout-wrap u-layout-wrap-1">
@@ -130,27 +131,35 @@
             <div class="u-layout-row" style="">
               <div class="u-align-center u-container-style u-layout-cell u-left-cell u-size-30 u-size-xs-60 u-white u-layout-cell-1" src="">
                 <div class="u-container-layout u-container-layout-1">
-                  <p class="u-align-center u-custom-font u-font-lobster u-text u-text-default u-text-1">Cuisine</p>
-                  <h2 class="u-align-center u-custom-font u-font-merriweather u-text u-text-default u-text-2">Recipe Title</h2>
-                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-3">By User</p>
+                  <p class="u-align-center u-custom-font u-font-lobster u-text u-text-default u-text-1">{{recipe.cuisine.cuisine_name}}</p>
+                  <h2 class="u-align-center u-custom-font u-font-merriweather u-text u-text-default u-text-2">{{recipe.recipe_name}}</h2>
+                  <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-3">{{recipe.user.username}}</p>
                   <div class="u-align-center u-container-align-center-lg u-container-align-center-md u-container-align-center-sm u-container-align-center-xl u-container-style u-grey-10 u-group u-group-1">
                     <div class="u-container-layout">
-                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-4">Serving</p>
-                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-5">Cooking Time</p>
+                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-4"  >Serves:{{recipe.serving}}</p>
+                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-5">Time:{{recipe.cooking_time}} mins</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-30 u-size-xs-60 u-image-1" src="" data-image-width="1280" data-image-height="862">
                 <div class="u-container-layout u-container-layout-3" src="">
-                  <div class="u-custom-color-1 u-preserve-proportions u-shape u-shape-rectangle u-shape-1"></div>
+                  <div class="{% if recipe.veg %}green-box{% else %}red-box{% endif %} u-custom-color-1 u-preserve-proportions u-shape u-shape-rectangle u-shape-1"></div>
+                  <style>
+                    .green-box {
+                      background-color: rgba(60,154,49,0.9686274509803922);
+                    }
+                    .red-box {
+                      background-color: red;
+                    }
+                  </style>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </section></div>
     <section class="u-clearfix u-gradient u-section-2" id="sec-dddb">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
@@ -160,12 +169,7 @@
                 <div class="u-container-layout u-container-layout-1">
                   <h4 class="u-align-center u-custom-font u-font-merriweather u-text u-text-default u-text-1">Steps</h4>
                   <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-2">
-                    Sample text. Click to select the Text Element.<br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+                    {{recipe.recipe_steps|linebreaksbr}}
                   </p>
                 </div>
               </div>
@@ -173,12 +177,7 @@
                 <div class="u-container-layout u-container-layout-2">
                   <h4 class="u-align-center u-custom-font u-font-merriweather u-text u-text-default u-text-3">Ingredients<span style="font-size: 1rem;"></span></h4>
                   <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-4">
-                    Sample text. Click to select the Text Element.<br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+                    {{recipe.ingredients|linebreaksbr}}
                   </p>
                 </div>
               </div>

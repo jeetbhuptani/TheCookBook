@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 # from django.http import HttpResponse
 # from .models import Users
 from django.contrib import messages
@@ -118,8 +118,11 @@ def account(request):
         return redirect('account')
     else:
         user = request.user
+        recipes = Recipe.objects.filter(user=user)
+
         context={
             'user': user,
+            'recipe' : recipes,
         }
         return render(request,"account.html",context)
 
@@ -163,8 +166,12 @@ def urecipe(request):
             "category": category,
             "cuisine": cuisine,
         }
-        return render(request,"urecipe1.html",context)
+        return render(request,"urecipe.html",context)
 
 @login_required(login_url='/login')
-def vrecipe(request):
-    return render(request,"vrecipe.html")
+def vrecipe(request,recipe_id):
+    recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    context={
+        'recipe' : recipe,
+    }
+    return render(request,"vrecipe.html",context)
