@@ -171,7 +171,14 @@ def urecipe(request):
 @login_required(login_url='/login')
 def vrecipe(request,recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    user = request.user
+    comment = Comment.objects.filter(user=user,recipe=recipe).first()
+    recent_comments = Comment.objects.filter(recipe=recipe).order_by('-date')[:3]
+    comments = Comment.objects.all()
     context={
         'recipe' : recipe,
+        'comment' : comment,
+        'comments' : comments,
+        'recent_comment': recent_comments,
     }
     return render(request,"vrecipe.html",context)
