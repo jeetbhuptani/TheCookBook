@@ -126,7 +126,8 @@ def urecipe(request):
         )
         print(recipe)
         recipe.save()
-        return redirect('account')
+        messages.success(request,'Recipe Added Successfully')
+        return redirect(account)
 
     else:
         category = Category.objects.all()
