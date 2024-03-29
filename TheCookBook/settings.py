@@ -129,3 +129,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'django.contrib.auth.backends.ModelBackend',
 #     )
 # AUTH_USER_MODEL = 'TCB.Users'
+CACHE_CONTROL = 'no-cache'
