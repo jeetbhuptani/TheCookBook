@@ -136,7 +136,7 @@ def urecipe(request):
             "category": category,
             "cuisine": cuisine,
         }
-        return render(request,"urecipe.html",context)
+        return render(request,"urecipe1.html",context)
 
 @login_required(login_url='/login')
 def vrecipe(request):
