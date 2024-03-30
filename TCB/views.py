@@ -8,29 +8,41 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, F
 
 def home(request):
-    if request.method == 'POST':
-        rname = request.POST['recipe']
-        category_id = request.POST['category']
-        cuisine_id = request.POST['cuisine']
-        veg = request.POST['veg']
-        non = request.POST['non-veg']
-
-        recipe = Recipe.objects.filter(recipe_name=rname).values()
-
-        context = {
-            'recipe' : recipe,
-        }
-        return render(request,'home.html',context)
+    recipes = Recipe.objects.all()
     category = Category.objects.all()
     cuisine = Cuisine.objects.all()
-    recipe = Recipe.objects.all()
+    if request.method == 'POST':
+        rname = request.POST.get('recipe')
+        category_id = request.POST.get('category')
+        cuisine_id = request.POST.get('cuisine')
+        veg = request.POST.get('veg')
+        non = request.POST.get('non-veg')
+        
+        if rname:
+            recipes = recipes.filter(recipe_name__icontains=rname)
+        if category_id:
+            recipes = recipes.filter(category_id=category_id)
+        if cuisine_id:
+            recipes = recipes.filter(cuisine_id=cuisine_id)
+        if veg and not non:
+            recipes = recipes.filter(veg=True)
+        if non and not veg:
+            recipes = recipes.filter(veg=False)
+        context={
+            'recipe':recipes,
+            'category':category,
+            'cuisine':cuisine,
+        }
+        print(recipes)
+        if not recipes:
+            messages.info(request,"No Such Recipe Found!!")
+        return render(request,'home.html',context)
     context={
         'category':category,
         'cuisine':cuisine,
-        'recipe': recipe,
     }
     return render(request,'home.html',context)
-
+    
 def login(request):
     if request.method == 'POST':
         username = request.POST['user-name']

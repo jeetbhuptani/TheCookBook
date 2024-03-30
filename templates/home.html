@@ -26,9 +26,14 @@
     <meta data-intl-tel-input-cdn-path="{% static 'intlTelInput/' %}" />
   </head>
   <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="home.html" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
+        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -48,7 +53,7 @@
             <ul class="u-nav u-unstyled u-nav-1">
               {% if user.is_authenticated %}
                 <li class="u-nav-item">
-                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="home.html" style="padding: 10px 20px;">Serach Recipes</a>
+                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/" style="padding: 10px 20px;">Serach Recipes</a>
                 </li>
               {% endif %}
               <li class="u-nav-item">
@@ -121,19 +126,23 @@
       </div>
     </header>
     {% if user.is_authenticated %}
+    <form method="post" action="/">
+      {% csrf_token %}
       <section class="u-clearfix u-grey-75 u-section-1" id="sec-7725">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
           <div class="u-form u-form-1">
             <form action="/" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" source="custom" name="form" style="padding: 10px;" method="post">
               {% csrf_token %}
+              <div redirect = "true" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" source="custom" name="form" style="padding: 10px;">
               <div class="u-form-group u-label-top">
                 <label for="email-3a3e" class="u-label">Recipe</label>
-                <input type="text" placeholder="Enter Recipe Name" id="email-3a3e" name="recipe" class="u-input u-input-rectangle" required="required" />
+                <input type="text" placeholder="Enter Recipe Name" id="email-3a3e" name="recipe" class="u-input u-input-rectangle"/>
               </div>
               <div class="u-form-group u-form-select u-label-top u-form-group-2">
                 <label for="select-2521" class="u-label">Category</label>
                 <div class="u-form-select-wrapper">
                   <select id="select-2521" name="category" class="u-input u-input-rectangle">
+                    <option value=""></option>
                     {% for x in category %}
                     <option value="{{ x.cateory_id }}" data-calc="">{{ x.category_name }}</option>
                     {% endfor %}
@@ -147,6 +156,7 @@
                 <label for="select-1fb8" class="u-label">Cuisine</label>
                 <div class="u-form-select-wrapper">
                   <select id="select-1fb8" name="cuisine" class="u-input u-input-rectangle">
+                    <option value=""></option>  
                     {% for x in cuisine %}
                     <option value="{{ x.cuisine_id }}" data-calc="">{{ x.cuisine_name }}</option>
                     {% endfor %}
@@ -160,11 +170,11 @@
                 <label class="u-label"></label>
                 <div class="u-form-checkbox-group-wrapper">
                   <div class="u-input-row">
-                    <input id="field-fc6f" type="checkbox" name="veg" value="true" class="u-field-input" data-calc="true" checked="checked" />
+                    <input id="field-fc6f" type="checkbox" name="veg" value="True" class="u-field-input" data-calc="true" checked="checked" />
                     <label class="u-field-label" for="field-fc6f">Veg</label>
                   </div>
                   <div class="u-input-row">
-                    <input id="field-8531" type="checkbox" name="non-veg" value="true" class="u-field-input" data-calc="true" checked="checked" />
+                    <input id="field-8531" type="checkbox" name="non-veg" value="True" class="u-field-input" data-calc="true" checked="checked" />
                     <label class="u-field-label" for="field-8531">Non-veg</label>
                   </div>
                 </div>
@@ -173,13 +183,12 @@
                 <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-btn-1">Search Recipe</a>
                 <input type="submit" value="submit" class="u-form-control-hidden" />
               </div>
-              <div class="u-form-send-message u-form-send-success"></div>
-              <div class="u-form-send-error u-form-send-message">No Such Recipes Found</div>
-              <input type="hidden" value="" name="recaptchaResponse" />
+              </div>
             </form>
           </div>
         </div>
       </section>
+
     {% else %}
       <section class="u-clearfix u-grey-75 u-section-1" id="sec-7725">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -219,11 +228,11 @@
                 <label class="u-label"></label>
                 <div class="u-form-checkbox-group-wrapper">
                   <div class="u-input-row">
-                    <input id="field-fc6f" type="checkbox" name="radiobutton[]" value="true" class="u-field-input" data-calc="true" checked="checked" />
+                    <input id="field-fc6f" type="checkbox" name="veg" value="True" class="u-field-input" data-calc="true" checked="checked" />
                     <label class="u-field-label" for="field-fc6f">Veg</label>
                   </div>
                   <div class="u-input-row">
-                    <input id="field-8531" type="checkbox" name="radiobutton[]" value="true" class="u-field-input" data-calc="true" checked="checked" />
+                    <input id="field-8531" type="checkbox" name="nonveg" value="True" class="u-field-input" data-calc="true" checked="checked" />
                     <label class="u-field-label" for="field-8531">Non-veg</label>
                   </div>
                 </div>
@@ -232,8 +241,6 @@
                 <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-btn-1">Search Recipe</a>
                 <input type="submit" value="submit" class="u-form-control-hidden" disabled />
               </div>
-              <div class="u-form-send-message u-form-send-success"></div>
-              <div class="u-form-send-error u-form-send-message">No Such Recipes Found</div>
               <input type="hidden" value="" name="recaptchaResponse" />
             </form>
           </div>
@@ -241,11 +248,13 @@
       </section>
     {% endif %}
     {% if user.is_authenticated %}
+    {% if not recipe %}
       <section class="u-clearfix u-white u-section-2" id="norecipes">
         <div class="u-clearfix u-sheet u-sheet-1">
           <p class="u-align-center u-text u-text-1">Search Any Recipe To See Delicious Dishes</p>
         </div>
       </section>
+      {% endif %}
     {% else %}
       <section class="u-clearfix u-white u-section-2" id="norecipes">
         <div class="u-clearfix u-sheet u-sheet-1">
