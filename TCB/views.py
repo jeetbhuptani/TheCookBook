@@ -239,3 +239,20 @@ def update_rating(request, recipe_id, rating):
 
     return
 
+@login_required(login_url='/login')
+def report(request):
+    if request.method == 'POST':
+        recipe_id = request.POST['recipe_id']
+        report_issue = request.POST['report']
+        recipe = Recipe.objects.filter(pk=recipe_id).first()
+        if request.user == recipe.user:
+            messages.info(request,"Cannot Report Your Own Recipe")
+            return
+        report = Report.objects.create(
+            user = request.user,
+            recipe = recipe,
+            report_name = report_issue
+        )
+        messages.success(request,"Reported Successfully")
+        return 
+    return HttpResponse("Not post method")
