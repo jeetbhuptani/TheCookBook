@@ -28,6 +28,7 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     rating = models.FloatField()
+    count = models.IntegerField()
     veg = models.BooleanField()
 
 class Report(models.Model):

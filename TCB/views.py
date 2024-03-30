@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-# from django.http import HttpResponse
-# from .models import Users
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
 # Create your views here.
@@ -173,12 +172,25 @@ def vrecipe(request,recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     user = request.user
     comment = Comment.objects.filter(user=user,recipe=recipe).first()
-    recent_comments = Comment.objects.filter(recipe=recipe).order_by('-date')[:3]
-    comments = Comment.objects.all()
+    all_comments = Comment.objects.filter(recipe=recipe)
+    paginator = Paginator(all_comments,3)
+    page_number = request.GET.get('page')
+    try:
+        comments = paginator.page(page_number)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
     context={
         'recipe' : recipe,
         'comment' : comment,
         'comments' : comments,
-        'recent_comment': recent_comments,
     }
     return render(request,"vrecipe.html",context)
+
+@login_required(login_url='/login')
+def comment(request):
+    if request.method == 'POST':
+        recipe = request.POST['recipe']
+        comment = request.POST['comment']
+        rating = request.POST['rate']

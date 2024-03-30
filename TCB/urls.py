@@ -10,4 +10,5 @@ urlpatterns = [
     path('account',views.account,name="account"),
     path('urecipe',views.urecipe,name="urecipe"),
     path('vrecipe/<int:recipe_id>/',views.vrecipe,name="vrecipe"),
+    path('vrecipe/<int:recipe_id>/comment',views.comment,name="comment"),
 ]
