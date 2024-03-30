@@ -44,6 +44,9 @@ class Comment(models.Model):
     comment = models.TextField()
     date = models.DateField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-date']
+
 class Userrating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
