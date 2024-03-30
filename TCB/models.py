@@ -27,8 +27,8 @@ class Recipe(models.Model):
     serving = models.IntegerField()
     cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    rating = models.FloatField()
-    count = models.IntegerField()
+    rating = models.FloatField(default=0)
+    count = models.IntegerField(default=0)
     veg = models.BooleanField()
 
 class Report(models.Model):
@@ -43,3 +43,8 @@ class Comment(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     comment = models.TextField()
     date = models.DateField(auto_now_add=True)
+
+class Userrating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    rating = models.FloatField()

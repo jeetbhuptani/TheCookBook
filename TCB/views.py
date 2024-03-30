@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
-# Create your views here.
+from django.http import HttpResponse, HttpResponseNotFound
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg, F
 
 def home(request):
     if request.method == 'POST':
@@ -189,8 +190,57 @@ def vrecipe(request,recipe_id):
     return render(request,"vrecipe.html",context)
 
 @login_required(login_url='/login')
-def comment(request):
+def comment(request, recipe_id):
     if request.method == 'POST':
-        recipe = request.POST['recipe']
-        comment = request.POST['comment']
-        rating = request.POST['rate']
+        try:
+            recipe = Recipe.objects.get(pk=recipe_id)
+        except Recipe.DoesNotExist:
+            return HttpResponseNotFound("Recipe not found")
+
+        comment_text = request.POST.get('comment')
+        rating = request.POST.get('rate')
+
+        if recipe.user == request.user:
+            messages.info(request, "Cannot comment or rate your own recipe")
+            return redirect(request.path)
+
+        if rating:
+            update_rating(request, recipe_id, rating)
+
+        comment = Comment.objects.create(
+            user=request.user,
+            recipe=recipe,
+            comment=comment_text
+        )
+        print(comment)
+        return redirect('vrecipe', recipe_id=recipe_id)
+
+    # Handle GET request if necessary
+    return HttpResponse("GET request received for comment view")
+
+        
+
+
+def update_rating(request,recipe_id,rating):
+        user = request.user
+        existing_rating = Userrating.objects.filter(user=user, recipe_id=recipe_id).first()
+
+        if existing_rating:
+            existing_rating.rating = rating
+            existing_rating.save()
+        else:
+            Userrating.objects.create(user=user, recipe_id=recipe_id, rating=rating)
+
+        # Calculate the new average rating and count for the recipe
+        recipe = Recipe.objects.get(pk=recipe_id)
+        current_count = recipe.rating_count
+        current_average = recipe.average_rating
+
+        new_count = current_count + 1
+        new_average = ((current_average * current_count) + rating) / new_count
+
+        # Update the recipe with the new average rating and count
+        Recipe.objects.filter(pk=recipe_id).update(average_rating=new_average, rating_count=new_count)
+
+        return
+
