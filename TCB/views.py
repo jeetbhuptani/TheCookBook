@@ -216,7 +216,6 @@ def comment(request, recipe_id):
             print(comment)
             return redirect('vrecipe', recipe_id=recipe_id)
 
-    # Handle GET request if necessary
     return HttpResponse("GET request received for comment view")
 
         
@@ -224,8 +223,7 @@ def comment(request, recipe_id):
 
 def update_rating(request, recipe_id, rating):
     user = request.user
-    
-    # Update or create a new rating object
+
     existing_rating = Userrating.objects.filter(user=user, recipe_id=recipe_id).first()
     if existing_rating:
         existing_rating.rating = rating
@@ -235,10 +233,8 @@ def update_rating(request, recipe_id, rating):
         count = Recipe.objects.filter(pk=recipe_id).count + 1
         Recipe.objects.filter(pk=recipe_id).update(count=count)
 
-    # Calculate the new average rating for the recipe
     new_average = Userrating.objects.filter(recipe_id=recipe_id).aggregate(Avg('rating'))['rating__avg']
 
-    # Update the recipe with the new average rating
     Recipe.objects.filter(pk=recipe_id).update(rating=new_average)
 
     return
