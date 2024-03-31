@@ -15,7 +15,7 @@
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" />
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Merriweather:300,300i,400,400i,700,700i,900,900i" />
 
-    <script type="application/ld+json">{"context": "http://schema.org","@type": "Organization","name": "TheCookBook","logo": "{% static 'images/default-logo.png' %}"}</script>
+    <script type="application/ld+json">{"context": "http://schema.org","@type": "Organization","name": "TheCookBook","logo": "{% static 'images/TCB_transparent.png' %}"}</script>
     <meta name="theme-color" content="#478ac9" />
     <meta property="og:title" content="urecipe" />
     <meta property="og:description" content="" />
@@ -26,7 +26,7 @@
   <body data-path-to-root="./" data-include-products="true" class="u-body u-xl-mode" data-lang="en">
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
+        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/TCB_transparent.png' %}" class="u-logo-image u-logo-image-1" /></a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -50,13 +50,13 @@
                 </li>
               {% endif %}
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="aboutus" style="padding: 10px 20px;">About TCB</a>
+                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/aboutus" style="padding: 10px 20px;">About TCB</a>
               </li>
               {% if user.is_authenticated %}
 
               {% else %}
                 <li class="u-nav-item">
-                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="login" style="padding: 10px 20px;">Login</a>
+                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/login" style="padding: 10px 20px;">Login</a>
                 </li>
               {% endif %}
               {% if user.is_authenticated %}
@@ -64,13 +64,13 @@
                   <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 20px;">Profile</a><div class="u-nav-popup">
                     <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="account">Account</a>
+                        <a class="u-button-style u-nav-link u-white" href="/account">Account</a>
                       </li>
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="urecipe">Upload Recipe</a>
+                        <a class="u-button-style u-nav-link u-white" href="/urecipe">Upload Recipe</a>
                       </li>
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="logout">Logout</a>
+                        <a class="u-button-style u-nav-link u-white" href="/logout">Logout</a>
                       </li>
                     </ul>
                   </div>
@@ -88,24 +88,24 @@
                       <a class="u-button-style u-nav-link" href="/">Serach Recipes</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="aboutus">About TCB</a>
+                      <a class="u-button-style u-nav-link" href="/aboutus">About TCB</a>
                     </li>
                   {% else %}
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="login">Login</a>
+                      <a class="u-button-style u-nav-link" href="/login">Login</a>
                     </li>
                   {% endif %}
                   <li class="u-nav-item">
                     <a class="u-button-style u-nav-link">Profile</a><div class="u-nav-popup">
                       <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="account">Account</a>
+                          <a class="u-button-style u-nav-link" href="/account">Account</a>
                         </li>
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="urecipe">Upload Recipe</a>
+                          <a class="u-button-style u-nav-link" href="/urecipe">Upload Recipe</a>
                         </li>
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="logout">Logout</a>
+                          <a class="u-button-style u-nav-link" href="/logout">Logout</a>
                         </li>
                       </ul>
                     </div>
@@ -118,13 +118,13 @@
         </nav>
       </div>
     </header>
-    <form action="urecipe" method="post"  enctype="multipart/form-data">
+    <form action="/urecipe" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
     <section class="u-border-5 u-border-grey-10 u-border-no-bottom u-border-no-left u-border-no-right u-clearfix u-gradient u-section-1" id="sec-065b">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="urecipe" class="submit u-border-none u-btn u-btn-round u-button-style u-none u-radius u-btn-1"><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/25429.png' %}" alt="" /></span>&nbsp;<br /></a>
+        <a href="/urecipe" class="submit u-border-none u-btn u-btn-round u-button-style u-none u-radius u-btn-1"><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/25429.png' %}" alt="" /></span>&nbsp;<br /></a>
         <div class="u-align-center u-custom-color-1 u-form u-radius u-form-1">
-          <form action="urecipe" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Upload Recipe" style="padding: 10px;" method="post">
+          <form action="/urecipe" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Upload Recipe" style="padding: 10px;" method="post">
             <div redirect="true" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Upload Recipe" style="padding: 10px">
             <div class="u-form-group u-form-name u-label-top">
               <label for="name-adf1" class="u-custom-font u-font-montserrat u-label">Recipe Title</label>

@@ -17,7 +17,7 @@
     <script type="application/ld+json">{ "@context": "http://schema.org",
 		"@type": "Organization",
 		"name": "TheCookBook",
-		"logo": "{% static 'images/default-logo.png' %}"
+		"logo": "{% static 'images/TCB_transparent.png' %}"
     }</script>
     <meta name="theme-color" content="#478ac9" />
     <meta property="og:title" content="home" />
@@ -33,7 +33,7 @@
     {% endif %}
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/default-logo.png' %}" class="u-logo-image u-logo-image-1" /></a>
+        <a href="/" class="u-image u-logo u-image-1" title="home"><img src="{% static 'images/TCB_transparent.png' %}" class="u-logo-image u-logo-image-1" /></a>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -57,13 +57,13 @@
                 </li>
               {% endif %}
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="aboutus" style="padding: 10px 20px;">About TCB</a>
+                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/aboutus" style="padding: 10px 20px;">About TCB</a>
               </li>
               {% if user.is_authenticated %}
 
               {% else %}
                 <li class="u-nav-item">
-                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="login" style="padding: 10px 20px;">Login</a>
+                  <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/login" style="padding: 10px 20px;">Login</a>
                 </li>
               {% endif %}
               {% if user.is_authenticated %}
@@ -71,13 +71,13 @@
                   <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" style="padding: 10px 20px;">Profile</a><div class="u-nav-popup">
                     <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="account" ">Account</a>
+                        <a class="u-button-style u-nav-link u-white" href="/account">Account</a>
                       </li>
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="urecipe">Upload Recipe</a>
+                        <a class="u-button-style u-nav-link u-white" href="/urecipe">Upload Recipe</a>
                       </li>
                       <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link u-white" href="logout">Logout</a>
+                        <a class="u-button-style u-nav-link u-white" href="/logout">Logout</a>
                       </li>
                     </ul>
                   </div>
@@ -106,13 +106,13 @@
                     <a class="u-button-style u-nav-link">Profile</a><div class="u-nav-popup">
                       <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="account" ">Account</a>
+                          <a class="u-button-style u-nav-link" href="/account">Account</a>
                         </li>
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="urecipe">Upload Recipe</a>
+                          <a class="u-button-style u-nav-link" href="/urecipe">Upload Recipe</a>
                         </li>
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link" href="logout">Logout</a>
+                          <a class="u-button-style u-nav-link" href="/logout">Logout</a>
                         </li>
                       </ul>
                     </div>
@@ -144,7 +144,7 @@
                   <select id="select-2521" name="category" class="u-input u-input-rectangle">
                     <option value=""></option>
                     {% for x in category %}
-                    <option value="{{ x.cateory_id }}" data-calc="">{{ x.category_name }}</option>
+                    <option value="{{ x.category_id }}" data-calc="">{{ x.category_name }}</option>
                     {% endfor %}
                   </select>
                   <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
