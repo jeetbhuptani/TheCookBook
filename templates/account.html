@@ -28,11 +28,10 @@
     <meta data-intl-tel-input-cdn-path="{% static 'intlTelInput/' %}" />
   </head>
   <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
-   
     {% if messages %}
-        {% for message in messages %}
-            <script>alert("{{ message }}");</script>
-        {% endfor %}
+      {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+      {% endfor %}
     {% endif %}
     <header class="u-clearfix u-header u-header" id="sec-2ef3">
       <div class="u-clearfix u-sheet u-sheet-1">
@@ -135,11 +134,11 @@
           <div class="u-container-layout u-container-layout-1">
             <span class="u-file-icon u-icon u-icon-1" id="toggleButton"><img id="imageToToggle" src="{% static 'images/1250925.png' %}" alt="" /></span>
             <h6 class="u-custom-font u-font-merriweather u-text u-text-default u-text-2">Username:&nbsp;</h6>
-            <p style="padding-left: 65px;" class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-3">{{user.username}}</p> 
+            <p style="padding-left: 65px;" class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-3">{{ user.username }}</p>
             <h6 class="u-custom-font u-font-merriweather u-text u-text-default u-text-2">Name:&nbsp;</h6>
-            <p class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-3">{{user.first_name}} {{user.last_name}}</p>
+            <p class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-3">{{ user.first_name }} {{ user.last_name }}</p>
             <h6 class="u-custom-font u-font-merriweather u-text u-text-default u-text-4">Email:&nbsp;</h6>
-            <p class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-5">{{user.email}}</p>
+            <p class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-5">{{ user.email }}</p>
             <script>
               document.addEventListener("DOMContentLoaded", function() {
                   var toggleButton = document.getElementById("toggleButton");
@@ -159,8 +158,7 @@
                   });
               });
           </script>
-          
-            
+
             <div id="hiddenSection" style="display: none;" class="u-container-style u-expanded-width u-group u-palette-5-light-2 u-shape-rectangle u-group-2">
               <div class="u-container-layout u-valign-middle-xs u-container-layout-2">
                 <div class="u-form u-form-1">
@@ -168,18 +166,18 @@
                     {% csrf_token %}
                     <div class="u-form-group u-form-name u-label-top">
                       <label for="name-558c" class="u-label">First Name</label>
-                      <input type="text" value="{{user.first_name}}" id="name-558c" name="fname" class="u-input u-input-rectangle" required="" />
+                      <input type="text" value="{{ user.first_name }}" id="name-558c" name="fname" class="u-input u-input-rectangle" required="" />
                     </div>
                     <div class="u-form-group u-label-top u-form-group-2">
                       <label for="text-e35c" class="u-label">Last Name</label>
-                      <input type="text" value="{{user.last_name}}" id="text-e35c" name="lname" class="u-input u-input-rectangle" />
+                      <input type="text" value="{{ user.last_name }}" id="text-e35c" name="lname" class="u-input u-input-rectangle" />
                     </div>
                     <div class="u-form-email u-form-group u-label-top">
                       <label for="email-558c" class="u-label">Email</label>
-                      <input type="email" value="{{user.email}}" id="email-558c" name="email" class="u-input u-input-rectangle" required="" />
+                      <input type="email" value="{{ user.email }}" id="email-558c" name="email" class="u-input u-input-rectangle" required="" />
                     </div>
                     <div class="u-form-group u-form-submit u-label-top">
-                      <a href="account" onClick ="reloadPage()" class="u-btn u-btn-submit u-button-style">Submit</a>
+                      <a href="account" onClick="reloadPage()" class="u-btn u-btn-submit u-button-style">Submit</a>
                       <input type="submit" value="submit" class="u-form-control-hidden" />
                     </div>
                   </form>
@@ -206,20 +204,31 @@
           <div class="u-repeater u-repeater-1">
             <!-- blog_post -->
             {% for x in recipe %}
-            <div style="padding-top: 30px;" class="u-blog-post u-container-style u-repeater-item">
-              <div class="u-container-layout u-similar-container u-container-layout-1">
-                <!-- blog_post_header -->
-                <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-2"><a class="u-post-header-link" href="blog/post-5.html">{{x.recipe_name}}</a></h2><!-- /blog_post_header --><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'images/484662.png' %}" alt="" /></span>
-                <a class="u-post-header-link" href="{% url 'vrecipe' recipe_id=x.recipe_id %}">
-                  <!-- blog_post_image -->
-                  <img src="{{x.recipe_image}}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" /><!-- /blog_post_image -->
-                </a><!-- blog_post_content -->
-                <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-3 fr-view">Cuisine: {{x.cuisine.cuisine_name}}</div>
-                <!-- /blog_post_content -->
+              <div style="padding-top: 30px;" class="u-blog-post u-container-style u-repeater-item">
+                <div class="u-container-layout u-similar-container u-container-layout-1">
+                  <!-- blog_post_header -->
+                  <h2 class="u-blog-control u-custom-font u-font-merriweather u-text u-text-2"><a class="u-post-header-link" href="blog/post-5.html">{{ x.recipe_name }}</a></h2>
+                  <!-- /blog_post_header -->
+                  <span class="u-file-icon u-icon u-icon-1"><img onclick="deleteRecipe({{x.recipe_id}})" src="{% static 'images/484662.png' %}" alt="" /></span>
+                  <a class="u-post-header-link" href="{% url 'vrecipe' recipe_id=x.recipe_id %}">
+                    <!-- blog_post_image -->
+                    <img src="{{ x.recipe_image }}" alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" /><!-- /blog_post_image -->
+                  </a><!-- blog_post_content -->
+                  <div class="u-blog-control u-custom-font u-font-montserrat u-post-content u-text u-text-3 fr-view">Cuisine: {{ x.cuisine.cuisine_name }}</div>
+                </div>
               </div>
-            </div>
             {% endfor %}
-            
+            <script>
+              function deleteRecipe(recipeid) {
+                var confirmDelete = confirm("Are you sure you want to delete this Recipe?");
+                if (confirmDelete) {
+                  window.location.href = "{% url 'delete' recipe_id=0 %}".replace('0',recipeid);
+                } else {
+                  alert("Deletion canceled.");
+                }
+              };
+              </script>
+
             <!-- /blog_post -->
             <!-- blog_post -->
             <!-- /blog_post -->
@@ -273,5 +282,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         </p>
       </div>
     </footer>
+    
   </body>
 </html>

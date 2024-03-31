@@ -268,3 +268,12 @@ def report(request):
         messages.success(request,"Reported Successfully")
         return 
     return HttpResponse("Not post method")
+
+@login_required(login_url='/login')
+def delete(request,recipe_id):
+    recipe = get_object_or_404(Recipe,pk=recipe_id)
+    if recipe.delete():
+        messages.success(request,"Recipe Deleted Successfully")
+    else:
+        messages.error(request, "Failed to delete recipe")
+    return redirect('/account')
