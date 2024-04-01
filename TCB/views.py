@@ -5,7 +5,7 @@ from django.contrib.auth.models import auth, User
 from django.http import HttpResponse, HttpResponseNotFound
 from .models import *
 from django.contrib.auth.decorators import login_required
-from django.db.models import Avg, F
+from django.db.models import Avg
 
 def home(request):
     recipes = Recipe.objects.all()
