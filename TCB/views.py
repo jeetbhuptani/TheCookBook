@@ -213,10 +213,10 @@ def comment(request, recipe_id):
         rating = request.POST.get('rate')
 
         if recipe.user == request.user:
-            messages.info(request, "Cannot comment or rate your own recipe")
+            messages.info(request,"Cannot comment or rate your own recipe")
             return redirect(request.path)
 
-        if rating:
+        if rating != 0:
             update_rating(request, recipe_id, rating)
 
         if comment_text:
@@ -228,7 +228,7 @@ def comment(request, recipe_id):
             print(comment)
             return redirect('vrecipe', recipe_id=recipe_id)
 
-    return HttpResponse("GET request received for comment view")
+    return redirect('/vrecipe/'+str(recipe_id)+'/')
 
         
 
@@ -242,7 +242,9 @@ def update_rating(request, recipe_id, rating):
         existing_rating.save()
     else:
         Userrating.objects.create(user=user, recipe_id=recipe_id, rating=rating)
-        count = Recipe.objects.filter(pk=recipe_id).count + 1
+        recipe = get_object_or_404(Recipe,pk=recipe_id)
+        count = recipe.count + 1
+        print(count)
         Recipe.objects.filter(pk=recipe_id).update(count=count)
 
     new_average = Userrating.objects.filter(recipe_id=recipe_id).aggregate(Avg('rating'))['rating__avg']
@@ -266,8 +268,8 @@ def report(request):
             report_name = report_issue
         )
         messages.success(request,"Reported Successfully")
-        return 
-    return HttpResponse("Not post method")
+        return redirect('vrecipe/'+recipe_id)
+    return HttpResponse()
 
 @login_required(login_url='/login')
 def delete(request,recipe_id):

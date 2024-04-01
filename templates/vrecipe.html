@@ -199,13 +199,16 @@
         </div>
       </div>
     </section>
+    <form action="comment" method="post">
+      {% csrf_token %}
     <section class="u-align-center u-clearfix u-section-3" id="sec-1959">
       <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
         <div class="u-align-center-xs u-form u-form-1">
           <form action="comment" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 15px" source="email" method="post">
             {% csrf_token %}
+            <div redirect="true" class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 15px" source="email">
             <div class="u-form-group u-form-rating u-form-group-1">
-              <label for="form-rating-7e22" class="u-label">Rating - {{recipe.rating}} ({{recipe.count}})</label>
+              <label for="form-rating-7e22" class="u-label">Rating - {{recipe.rating}}</label>
               <div class="u-rating-icons u-spacing-23" id="rating-div">
                 <span class="u-active-icon u-form-rating-item u-text-palette-3-base" style="display: none; height: 21px; width: 21px;">
                   <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 49.94 49.94" style="">
@@ -361,6 +364,7 @@
             </div>
             <input type="hidden" name="formServices" value="ed84961d-e893-4f8d-5317-309606de09ac" />
             <input type="hidden" name="recipe" value="{{recipe}}"/>
+            </div>
           </form>
         </div>
         <div class="u-container-style u-expanded-width u-gradient u-group u-radius u-shape-round u-group-1">
@@ -405,12 +409,16 @@
         </div>
       </div>
     </section>
+    </form>
+    <form action="/report" method="post">
+      {% csrf_token %}
     <section class="u-align-center u-clearfix u-section-4" id="sec-988d">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-custom-font u-font-merriweather u-text u-text-default u-text-1">Report An Issue</h3>
         <div class="u-form u-form-1">
           <form action="/report" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="email" method="post">
             {% csrf_token %}
+            <div class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="email">
             <div class="u-form-group u-form-message u-label-none">
               <label for="email-ef64" class="u-label"></label>
               <textarea placeholder="Issue" id="email-ef64" name="report" class="u-input u-input-rectangle" required="required"></textarea>
@@ -422,10 +430,12 @@
             </div>
             <div class="u-form-send-message u-form-send-success">#FormSendSuccess</div>
             <input type="hidden" name="formServices" value="ed84961d-e893-4f8d-5317-309606de09ac" />
+            </div>
           </form>
         </div>
       </div>
     </section>
+    </form>
 
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-2e22">
       <div class="u-clearfix u-sheet u-sheet-1">
