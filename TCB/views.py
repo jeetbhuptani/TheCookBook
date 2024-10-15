@@ -210,7 +210,7 @@ def comment(request, recipe_id):
             return HttpResponseNotFound("Recipe not found")
 
         comment_text = request.POST.get('comment')
-        rating = request.POST.get('rate')
+        rating = request.POST.get('rate') or 0
 
         if recipe.user == request.user:
             messages.info(request,"Cannot comment or rate your own recipe")
@@ -261,7 +261,7 @@ def report(request):
         recipe = Recipe.objects.filter(pk=recipe_id).first()
         if request.user == recipe.user:
             messages.info(request,"Cannot Report Your Own Recipe")
-            return
+            return redirect('vrecipe/'+recipe_id)
         report = Report.objects.create(
             user = request.user,
             recipe = recipe,
