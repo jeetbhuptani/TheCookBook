@@ -47,6 +47,7 @@ open http://127.0.0.1:8000/
 ## Features
 
 - search recipe
+![Search](images/Search.png)
 - upload recipe
 - comment and rate recipe
 - delete own recipe
