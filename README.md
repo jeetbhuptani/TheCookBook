@@ -49,10 +49,29 @@ open http://127.0.0.1:8000/
 - search recipe
   
 ![Search](static/images/Search.png)
-- upload recipe
+![Search Result](static/images/Result.png)
+![Recipe View](static/images/Recipe.png)
+![Steps](static/images/Steps.png)
+
 - comment and rate recipe
-- delete own recipe
+
+![Comment and Rating](static/images/Comment.png)
+
 - report recipe
+
+![Report](static/images/Report.png)
+
+- upload recipe
+
+![Upload Recipe](static/images/upload.png)
+
+- View profile
+
+![Profile](static/images/user.png)
+
+- View & Delete own recipe
+
+![User Recipes](static/images/userrecipes.png)
 
 ## Tech Stack
 
