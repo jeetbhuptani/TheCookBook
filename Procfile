@@ -1,0 +1,1 @@
+web: gunicorn TheCookBook.wsgi:application --log-file -
